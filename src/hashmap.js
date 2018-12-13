@@ -4,11 +4,11 @@ class HashMap {
     this.buckets =  []
   }
 
-  // If key exist returns value of key if not exist returns undefined
+  // If key exist return value of the key if not exist return new exception
   get(key) {
     const index = this.hashFunction(key, this.capacity);
     if (this.buckets[index] === undefined) {
-      return undefined
+      return new Error('Key doesn\'t exist');
     } else {
       for (var i = 0; i < this.buckets[index].length; i++) {
         if (this.buckets[index][i][0] === key) {
@@ -25,7 +25,6 @@ class HashMap {
       this.buckets[index] = [
         [key, value]
       ]
-      console.log('nie było, dodaję')
     } else {
       // if the bucket is not empty but you typed the same key then edit value of key
       let inserted = false;
@@ -34,32 +33,31 @@ class HashMap {
           if (this.buckets[index][i][0] === key) {
             this.buckets[index][i][1] = value;
             inserted = true;
-            console.log('edytuje value')
           }
         }
       }
+      // if there is colision push item at the end of the bucket
       if (inserted === false) {
         this.buckets[index].push([key, value]);
         console.log('pushuje')
       }
-      // if there is colision push item at the end of the bucket
     }
+    return this.buckets[index];
   }
 
   remove(key) {
     const index = this.hashFunction(key, this.capacity);
+    if (this.buckets[index] === undefined) {
+      return new Error('Element you want to remove doesn\'t exist');
+    }
     if (this.buckets[index].length === 1 && this.buckets[index][0][0] === key) {
-      console.log('usuwam element bezkolizyjny');
       delete this.buckets[index];
     } else {
       for (let i = 0; i < this.buckets[index].length; i++) {
         if (this.buckets[index][i] !== undefined) {
           if (this.buckets[index][i][0] === key) {
             delete this.buckets[index][i];
-            console.log('usówam element zagnieżdżony')
           }
-        } else {
-          console.log('usówasz coś co nie istnieje')
         }
       }
     }
