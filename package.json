@@ -1,0 +1,26 @@
+{
+  "name": "y",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "babel src/hashmap.js -o public/hashmap.bundle.js",
+    "compress": "uglifyjs public/hashmap.bundle.js -o public/hashmap.bundle.min.js"
+  },
+  "keywords": [
+    "hashmap",
+    "groupBy"
+  ],
+  "author": "Mariusz Szlachta",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.2.0",
+    "@babel/core": "^7.2.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.2.0",
+    "@babel/preset-env": "^7.2.0",
+    "uglify-js": "^3.4.9"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.0.0"
+  }
+}
