@@ -1,18 +1,22 @@
-class HashMap {
-  constructor(capacity) {
+// export default 
+export class HashMap {
+  constructor(capacity = 100) {
     this.capacity = capacity;
     this.buckets =  []
   }
 
   // If key exist return value of the key if not exist return new exception
   get(key) {
-    const index = this.hashFunction(key, this.capacity);
+		const index = this.hashFunction(key, this.capacity);
     if (this.buckets[index] === undefined) {
-      return new Error('Key doesn\'t exist');
+      return new Error('Element you are looking for doesn\'t exist');
+    }
+    if (this.buckets[index].length === 1 && this.buckets[index][0][0] === key) {
+      return this.buckets[index][0][1];
     } else {
-      for (var i = 0; i < this.buckets[index].length; i++) {
-        if (this.buckets[index][i][0] === key) {
-          return this.buckets[index][i][1];
+      for (let i = 0; i < this.buckets[index].length; i++) {
+        if (this.buckets[index][i] !== undefined && this.buckets[index][i][0] === key) {
+					return this.buckets[index][i][1];
         }
       }
     }
@@ -29,17 +33,14 @@ class HashMap {
       // if the bucket is not empty but you typed the same key then edit value of key
       let inserted = false;
       for (let i = 0; i < this.buckets[index].length; i++) {
-        if (this.buckets[index][i] !== undefined) {
-          if (this.buckets[index][i][0] === key) {
-            this.buckets[index][i][1] = value;
-            inserted = true;
-          }
+        if (this.buckets[index][i] !== undefined && this.buckets[index][i][0] === key) {
+					this.buckets[index][i][1] = value;
+					inserted = true;
         }
       }
       // if there is colision push item at the end of the bucket
       if (inserted === false) {
         this.buckets[index].push([key, value]);
-        console.log('pushuje')
       }
     }
     return this.buckets[index];
@@ -54,10 +55,8 @@ class HashMap {
       delete this.buckets[index];
     } else {
       for (let i = 0; i < this.buckets[index].length; i++) {
-        if (this.buckets[index][i] !== undefined) {
-          if (this.buckets[index][i][0] === key) {
-            delete this.buckets[index][i];
-          }
+        if (this.buckets[index][i] !== undefined && this.buckets[index][i][0] === key) {
+					delete this.buckets[index][i];
         }
       }
     }
@@ -76,4 +75,3 @@ class HashMap {
   }
 }
 
-// export default HashMap;

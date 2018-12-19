@@ -5,14 +5,13 @@
       {
         "targets": {
           "chrome": "58",
-          "ie": "9"
+          "ie": "9",
+          "node": "6.10"
         }
       }
     ]
   ],
   "plugins": [
-    ["@babel/plugin-transform-modules-commonjs", {
-      "allowTopLevelThis": true
-    }]
+    "@babel/plugin-transform-modules-umd"
   ]
 }
